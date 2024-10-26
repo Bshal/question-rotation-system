@@ -39,7 +39,7 @@ npm install
 
 **- Get Current Question**
 
-- **URL**: `/currentQuestion`
+- **URL**: `/dev/currentQuestion`
 - **Method**: `GET`
 - **Query Parameters**:
   - `region`: The region for which the question should be fetched (e.g., `Singapore`, `US`).
@@ -52,7 +52,7 @@ GET /dev/currentQuestion?region=Singapore
 
 **- Update Cycle Configuration**
 
-- **URL**: `/updateCycleConfig`
+- **URL**: `/dev/updateCycleConfig`
 - **Method**: `POST`
 - **Request Body**:
   - `region`: The region to update (e.g., `US`)
