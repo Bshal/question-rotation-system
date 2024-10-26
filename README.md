@@ -2,6 +2,8 @@
 
 This project implements a scalable system for dynamically assigning region-specific questions to users on a configurable cycle. The system is designed to handle 100k daily active users and can scale to millions globally.
 
+![Architecture Diagram](./static/images/architecture-diagram.png)
+
 ## Prerequisites
 
 Ensure that you have the following installed:
