@@ -47,7 +47,7 @@ npm install
 _Example Request_:
 
 ```bash
-GET /currentQuestion?region=Singapore
+GET /dev/currentQuestion?region=Singapore
 ```
 
 **- Update Cycle Configuration**
@@ -62,7 +62,7 @@ GET /currentQuestion?region=Singapore
 _Example Request_:
 
 ```bash
-POST /updateCycleConfig
+POST /dev/updateCycleConfig
 Content-Type: application/json
 
 {
