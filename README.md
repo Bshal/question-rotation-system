@@ -16,7 +16,7 @@ Ensure that you have the following installed:
 **Clone the repository:**
 
 ```bash
-git clone https://github.com/your-repo/question-rotation-system.git
+git clone https://github.com/Bshal/question-rotation-system.git
 cd question-rotation-system
 npm install
 ```
