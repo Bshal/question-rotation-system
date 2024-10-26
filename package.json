@@ -1,0 +1,23 @@
+{
+	"name": "question-rotation-system",
+	"version": "1.0.0",
+	"description": "",
+	"main": "handler.js",
+	"scripts": {
+		"dynamodb:start": "serverless dynamodb start --docker",
+		"dynamodb:migrate": "serverless dynamodb migrate",
+		"seed": "npm run dynamodb:migrate && node _seed.js",
+		"dev": "concurrently \"npm run dynamodb:start\" \"serverless offline\""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^9.0.1",
+		"serverless-dynamodb": "^0.2.54",
+		"serverless-offline": "^14.3.3"
+	},
+	"dependencies": {
+		"aws-sdk": "^2.1691.0"
+	}
+}

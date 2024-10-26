@@ -1,0 +1,74 @@
+service: question-rotation-system
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  environment:
+    AWS_REGION: ${self:provider.region}
+    DYNAMODB_ENDPOINT: ${env:DYNAMODB_ENDPOINT, ''}
+    QUESTIONS_TABLE: ${self:service}-questions
+    CYCLE_CONFIG_TABLE: ${self:service}-cycle-config
+
+resources:
+  Resources:
+    QuestionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.QUESTIONS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: region#questionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: region#questionId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    CycleConfigTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.CYCLE_CONFIG_TABLE}
+        AttributeDefinitions:
+          - AttributeName: region
+            AttributeType: S
+        KeySchema:
+          - AttributeName: region
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+functions:
+  assignQuestion:
+    handler: src/assignQuestion.handler
+    events:
+      - http:
+          path: /currentQuestion
+          method: get
+
+  updateCycleConfig:
+    handler: src/updateCycleConfig.handler
+    events:
+      - http:
+          path: /updateCycleConfig
+          method: post
+
+  rotateQuestions:
+    handler: src/rotateQuestions.handler
+    events:
+      - schedule:
+          rate: rate(7 days)
+          input:
+            region: us-west-1
+            cycleDuration: 7
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb
+
+custom:
+  serverless-dynamodb:
+    start:
+      docker: true # Enable Docker for local DynamoDB
+      port: 8000
+      inMemory: true
+      migrate: true
